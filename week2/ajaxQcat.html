@@ -1,0 +1,57 @@
+<!Doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>Javascript + jQuery + Ajax 연습하기</title>
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style type="text/css">
+      div.question-box {
+        margin: 10px 0 20px 0;
+      }
+      div.question-box > div {
+        margin-top: 30px;
+      }
+
+    </style>
+
+    <script>
+      function showCat()
+      {
+        // 여기에 코드를 입력하세요
+          $('#img-cat').empty();
+
+          $.ajax
+            ({
+              type: "GET", // GET 방식으로 요청한다.
+              url: "https://api.thecatapi.com/v1/images/search",
+              data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+              success: function(response)
+              {
+                // 서버에서 준 결과를 response라는 변수에 담음
+                let rows = response[0].url;
+
+               $('#img-cat').attr("src",rows);
+              }
+            })
+      }
+    </script>
+
+  </head>
+  <body>
+    <h1>Javascript + jQuery + Ajax 연습하기</h1>
+
+    <hr/>
+
+    <div class="question-box">
+      <h2>랜덤 고양이 사진 API를 이용하기</h2>
+      <p>예쁜 고양이 사진을 보여주세요</p>
+      <p>업데이트 버튼을 누를 때마다 화면에 데이터가 지웠다 새로 씌여져야 합니다.</p>
+      <button onclick="showCat()">고양이를 보자</button>
+      <div>
+        <img id="img-cat" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"/>
+      </div>
+    </div>
+  </body>
+</html>

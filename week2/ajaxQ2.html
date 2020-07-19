@@ -1,0 +1,122 @@
+<!Doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript + jQuery + Ajax 연습하기</title>
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            border: 1px solid;
+        }
+
+        .turn
+        {
+            color: red;
+        }
+    </style>
+
+    <script>
+        function showBikeInfo()
+        {
+            // 여기에 코드를 입력하세요
+             // 여기에 코드를 입력하세요
+            $("#bike-info").empty();
+
+            $.ajax
+            ({
+              type: "GET", // GET 방식으로 요청한다.
+              url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/bikeList/1/99",
+              data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+              success: function(response)
+              {
+                // 서버에서 준 결과를 response라는 변수에 담음
+                 let dda = response["rentBikeStatus"]["row"];
+
+                  // console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+                  for (let i=0; i<dda.length; i++)
+                  {
+                      let location = dda[i]["stationName"];
+                      let before = dda[i]["rackTotCnt"];
+                      let after = dda[i]["parkingBikeTotCnt"];
+
+                      if(after<5)
+                      {
+                         let tempHtml =
+                        "<tr><td>"+location+"</td>"+
+                        "<td>"+before+"</td>"+
+                        "<td style='color: red'>"+after+"</td></tr>";
+
+                          $('#bike-info').append(tempHtml);
+                      }
+                      else
+                      {
+                        let tempHtml =
+                        "<tr><td>"+location+"</td>"+
+                        "<td>"+before+"</td>"+
+                        "<td style='color: black'>"+after+"</td></tr>";
+
+                         $('#bike-info').append(tempHtml);
+                      }
+                  }
+              }
+            })
+
+        }
+    </script>
+
+</head>
+
+<body>
+<h1>Javascript + jQuery + Ajax 연습하기</h1>
+
+<hr/>
+
+<div class="question-box">
+    <h2>서울시 OpenAPI(실시간 따릉이 현황)를 이용하기</h2>
+    <p>모든 거치대(stationName)와 거치대 수(rackTotCnt), 남은 따릉이 수(parkingBikeTotCnt)를 보여주세요</p>
+    <p>업데이트 버튼을 누를 때마다 데이터가 지웠다 새로 씌여져야 합니다.</p>
+    <button onclick="showBikeInfo()">업데이트</button>
+    <table>
+        <thead>
+        <tr>
+            <td>거치대 위치</td>
+            <td>거치대 수</td>
+            <td>현재 거치된 따릉이 수</td>
+        </tr>
+        </thead>
+        <tbody id="bike-info">
+        <tr>
+            <td>102. 망원역 1번출구 앞</td>
+            <td>22</td>
+            <td >0</td>
+        </tr>
+        <tr>
+            <td>103. 망원역 2번출구 앞</td>
+            <td>16</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>104. 합정역 1번출구 앞</td>
+            <td>16</td>
+            <td>0</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
