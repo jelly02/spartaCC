@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         .wrapper
@@ -25,7 +25,8 @@
 
         .product-info {margin-top: 20px; }
 
-        .p-title {font-size: 50px ;}
+        .p-title {font-size: 50px ; }
+
 
         span { text-align: center;}
 
@@ -36,8 +37,43 @@
 
     <script>
 
+        $(document).ready(function()
+        {
+            $.ajax
+            ({
+              type: "GET", // GET 방식으로 요청한다.
+              url: "https://api.manana.kr/exchange/rate.json",
+              data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+              success: function(response)
+              {
+                // 서버에서 준 결과를 response라는 변수에 담음
+                let rows = response[1]["rate"];
+                let temp = "<p style='color:blue;'>달러-원 환율: "+rows+"</p>";
+
+                $('.rate').append(temp);
+
+              }
+            })
+
+        });
+
+
+
         function order()
         {
+            let form = document.orderForm;
+            let name = order.oName.value;
+            let piece = order.oPc.value;
+            let address = order.oAdd.value;
+            let phone = order.oNum.value;
+
+            alert(name);
+            alert(piece);
+            alert(address);
+            alert(phone);
+
+
+
             alert("주문이 완료되었습니다!");
         }
 
@@ -63,43 +99,46 @@
                         목줄 또는 하네스를 위한 리드홀이 있으며 후드 끈에 달린 스탑퍼로 후드 모양을 조절할 수 있습니다.
                     </p>
                 </div>
+
+                <div class="rate">
+
+                </div>
             </section>
 
             <section id="content">
-                <form>
+                <form name="orderForm">
                     <div class="input-group mb-3 input-group-sm">
                          <div class="input-group-prepend">
                            <span class="input-group-text">주문자 이름</span>
                         </div>
-                        <input type="text" class="form-control">
+                        <input name="oName" type="text" class="form-control">
                    </div>
                     <div class="input-group mb-3 input-group-sm">
                          <div class="input-group-prepend">
                            <span class="input-group-text">수량</span>
                         </div>
-                        <select >
-                                        <option>- 수량을 선택하세요 -</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-
+                        <select name="oPc">
+                           <option>- 수량을 선택하세요 -</option>
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                         </select>
                     </div>
                     <div class="input-group mb-3 input-group-sm">
                          <div class="input-group-prepend">
                            <span class="input-group-text">주소</span>
                         </div>
-                        <input type="text" class="form-control">
+                        <input name="oAdd" type="text" class="form-control">
                    </div>
                     <div class="input-group mb-3 input-group-sm">
                          <div class="input-group-prepend">
                            <span class="input-group-text">전화번호</span>
                         </div>
-                        <input type="number" class="form-control"> <br />
+                        <input name="oNum" type="number" class="form-control" maxlength="11"> <br />
                    </div>
                     <div class="button">
-                    <button type="submit"  onclick="order()" class="btn btn-primary" >주문하기</button>
+                    <button type="button"  onclick="order()" class="btn btn-primary" >주문하기</button>
                     </div>
                 </form>
             </section>
