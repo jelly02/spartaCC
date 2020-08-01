@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+    <!--    <h1>Hello index.html</h1>-->
+    <h1>서버를 만들었다!</h1>
+
+    <!--static : 이미지,CSS 등 정적 파일 저장-->
+    <!--이미지 가져오기-->
+    <!--외부 이미지 링크 가져올 때 단점 : 해당 이미지가 있는 서버가 다운 되면 가져오지 못함-->
+    <img src="{{ url_for('static', filename='rome.jpg') }}"/>
+
+
+</body>
+</html>
