@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f68106c-a595-480a-a2e8-0975248f7e9d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../week4/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../week4/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../week4/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../week4/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../week4/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../week4/.idea/week4.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../homework/.idea/homework.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../homework/week5Homework/.idea/week5Homework.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/projects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/projects.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week3/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week3/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week3/.idea/week3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../week3/.idea/week3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week3/db_practice.py" beforeDir="false" afterPath="$PROJECT_DIR$/../week3/db_practice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week3/week3Homework.py" beforeDir="false" afterPath="$PROJECT_DIR$/../week3/week3Homework.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +29,39 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../homework/week5Homework" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="projects" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/prac" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/prac/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.app" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -40,10 +74,41 @@
       <option name="presentableId" value="Default" />
       <updated>1596263160200</updated>
       <workItem from="1596263161515" duration="18000" />
+      <workItem from="1596544406288" duration="6884000" />
+      <workItem from="1596787925868" duration="2479000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1141" y="297" key="FileChooserDialogImpl" timestamp="1596788080083">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1141" y="297" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1596788080083" />
+    <state width="1068" height="267" key="GridCell.Tab.0.bottom" timestamp="1596553216151">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1068" height="267" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596553216151" />
+    <state width="1068" height="267" key="GridCell.Tab.0.center" timestamp="1596553216151">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1068" height="267" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596553216151" />
+    <state width="1068" height="267" key="GridCell.Tab.0.left" timestamp="1596553216151">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1068" height="267" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596553216151" />
+    <state width="1068" height="267" key="GridCell.Tab.0.right" timestamp="1596553216151">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1068" height="267" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596553216151" />
+    <state x="862" y="185" key="SettingsEditor" timestamp="1596544685283">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="862" y="185" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596544685283" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/projects$app.coverage" NAME="app Coverage Results" MODIFIED="1596544709693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/prac" />
   </component>
 </project>

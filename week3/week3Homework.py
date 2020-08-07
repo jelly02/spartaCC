@@ -10,9 +10,9 @@ box = soup.select("#body-content > div.newest-list > div > table > tbody > tr")
 # print(box)
 
 for music_list in box:
-    rank = box.select_one('td.number').text
-    title = box.select_one('td.info > a.title.ellipsis').text
-    name = box.select_one('td.info > a.artist.ellipsis').text
+    rank = music_list.select_one('td.number').text
+    title = music_list.select_one('td.info > a.title.ellipsis').text
+    name = music_list.select_one('td.info > a.artist.ellipsis').text
     print(rank,title,name)
 
 # for music_list in box:

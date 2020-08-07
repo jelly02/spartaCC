@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>스파르타 쇼핑몰</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .wrapper
+        {
+            width: 500px;
+            margin: 0 auto;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        img { display: block; margin-left: 0px; }
+        #product {width: 500px;}
+        .product-info {margin-top: 20px; }
+        .p-title {font-size: 50px ; }
+        span { text-align: center;}
+        #content {width: 500px; }
+        .button {text-align: center;}
+        .orderPart {margin-top: 40px}
+    </style>
+
+    <script>
+
+        $(document).ready(function()
+        {
+            $('#order-content').html("");
+            showReview();
+
+            //환율 정보
+            $.ajax
+            ({
+              type: "GET", // GET 방식으로 요청한다.
+              url: "https://api.manana.kr/exchange/rate.json",
+              data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+              success: function(response)
+              {
+                // 서버에서 준 결과를 response라는 변수에 담음
+                let rows = response[1]["rate"];
+                let temp = "<p style='color:blue;'>달러-원 환율: "+rows+"</p>";
+
+                $('.rate').append(temp);
+
+              }
+            })
+
+        });
+
+        //리뷰 출력
+        function showReview()
+        {
+            $.ajax
+            ({
+                 type: "GET",
+                 url: "/order",
+                 data: {},
+
+                 success: function (response)
+                 {
+                    if (response["result"] == "success")
+                    {
+                       let db_list = response['db_list']
+                       // alert(response["msg"]);
+                       for (let i=0;i<db_list.length;i++)
+                       {
+                           makeTable(db_list[i]['name'], db_list[i]['piece'], db_list[i]['address'], db_list[i]['number']);
+                       }
+                    }
+                    else
+                    {
+                       alert("리뷰 로딩 실패");
+                    }
+                  }
+            })
+        }
+
+        function makeTable(name,piece,address,number)
+        {
+            let tempHtml = `<tr>\n' +
+                '<td>${name}</td>\n' +
+                '<td>${piece}</td>\n' +
+                '<td>${address}</td>\n' +
+                '<td>${number}</td>\n' +
+                '</tr>`
+
+            $('#order-content').append(tempHtml);
+        }
+
+        function isCellPhone(p)
+        {
+            let regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
+            return regExp.test(p);
+         }
+
+        function order()
+        {
+            let name = $('input[name=oName]').val();
+            let piece = $('select[name=oPc]').val();
+            let address = $('input[name=oAdd]').val();
+            let phone = $('input[name=oNum]').val();
+
+            let trimName = name.trim();
+            let trimAddress = address.trim();
+            let trimPhone = phone.trim();
+            let checkPhone = trimPhone.substr(0,3)
+
+            if(trimName=="")
+            {
+                alert("이름을 입력해주세요.");
+                return;
+            }
+            else if(piece=="- 수량을 선택하세요 -")
+            {
+                alert("수량을 선택하세요.");
+                return;
+            }
+            else if(trimAddress=="")
+            {
+                alert("주소를 입력하세요.");
+                return;
+            }
+            else if(trimPhone.length>11)
+            {
+                alert("핸드폰 번호을 정확하게 적어주세요.");
+                return;
+            }
+            else if(trimPhone.length<10)
+            {
+                alert("핸드폰 번호을 정확하게 적어주세요.");
+                return;
+            }
+            else if (!isCellPhone(phone))
+            {
+               alert("휴대폰번호 입력 형식이 틀립니다. \n 010-0000-0000으로 입력해주세요")
+               return
+            }
+
+            $.ajax
+            ({
+                type: "POST",
+                url: "/order",
+                data: {name_send:trimName,piece_send:piece,add_send:trimAddress,num_send:phone},
+                success: function (response)
+                {
+                  if (response["result"] == "success")
+                  {
+                      alert(response["msg"]);
+                      window.location.reload();
+                  }
+                }
+            })
+        }
+    </script>
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <main id="main">
+            <section id="product">
+
+                <img alt="상품사진" src="https://thumbnail10.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2020/05/13/13/8/23e32586-c9e5-44d6-8341-f175c12e7f32.jpg"/>
+
+                <div class="product-info">
+                    <span class="p-title"> 강아지 우비 </span> <span> 가격: 25,000원/개</span>
+
+                    <p>
+                       판초형으로 가볍게 착용 가능한 판초레인코트 입니다.
+                        3000mm급 내수압과 UV코팅이 된 원단을 사용하였으며
+                        벨크로 테이프를 사용하여 젖은 옷을 쉽고 빠르게 갈아 입힐 수 있습니다
+                        목줄 또는 하네스를 위한 리드홀이 있으며 후드 끈에 달린 스탑퍼로 후드 모양을 조절할 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="rate">
+
+                </div>
+            </section>
+
+            <section id="content">
+                <form name="orderForm">
+                    <div class="input-group mb-3 input-group-sm">
+                         <div class="input-group-prepend">
+                           <span class="input-group-text">주문자 이름</span>
+                        </div>
+                        <input name="oName" type="text" class="form-control">
+                   </div>
+                    <div class="input-group mb-3 input-group-sm">
+                         <div class="input-group-prepend">
+                           <span class="input-group-text">수량</span>
+                        </div>
+                        <select name="oPc">
+                           <option>- 수량을 선택하세요 -</option>
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                         </select>
+                    </div>
+                    <div class="input-group mb-3 input-group-sm">
+                         <div class="input-group-prepend">
+                           <span class="input-group-text">주소</span>
+                        </div>
+                        <input name="oAdd" type="text" class="form-control">
+                   </div>
+                    <div class="input-group mb-3 input-group-sm">
+                         <div class="input-group-prepend">
+                           <span class="input-group-text">전화번호</span>
+                        </div>
+                        <input name="oNum" type="number" class="form-control" maxlength="11"> <br />
+                   </div>
+                    <div class="button">
+                    <button type="button"  onclick="order()" class="btn btn-primary" >주문하기</button>
+                    </div>
+                </form>
+
+                <div class="orderPart">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">이름</th>
+                                <th scope="col">수량</th>
+                                <th scope="col">주소</th>
+                                <th scope="col">전화번호</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-content">
+                            <tr>
+                                <td>박르탄</td>
+                                <td>3</td>
+                                <td>스파르타국 코딩시 프론트구</td>
+                                <td>010-1234-5678</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
