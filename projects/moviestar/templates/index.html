@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>마이 페이보릿 무비스타 | 프론트-백엔드 연결 마지막 예제!</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <style>
+            .center {
+                text-align: center;
+            }
+
+            .star-list {
+                width: 500px;
+                margin: 20px auto 0 auto;
+            }
+
+            .star-name {
+                display: inline-block;
+            }
+
+            .star-name:hover {
+                text-decoration: underline;
+            }
+
+            .card {
+                margin-bottom: 15px;
+            }
+        </style>
+        <script>
+            $(document).ready(function ()
+            {
+                // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
+                showStar();
+            });
+
+            function showStar()  //def show_stars():
+            {
+                $('#star-box').empty()
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/list', // def show_stars():
+                    data: {},
+                    success: function (response)
+                    {
+                        if (response['result'] == 'success')
+                        {
+                            let stars = response['stars_list']
+
+                            for (let i=0;i<stars.length;i++)
+                            {
+                                let star = stars[i]
+                                let name = star['name']
+                                let img_url = star['img_url']
+                                let recent = star['recent']
+                                let url = star['url']
+                                let like = star['like']
+
+                                // 반복문을 돌면서 카드를 생성
+                                makeCard(name,img_url,recent,url,like)
+
+                            }
+                        }
+                    }
+                });
+            }
+
+            function makeCard(name,img_url,recent,url,like)
+            {
+                let tempHtml = `<div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img
+                                        src="${img_url}"
+                                        alt="Placeholder image"
+                                />
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <a href="#" target="_blank" class="star-name title is-4">${name} (좋아요: ${like})</a>
+                            <p class="subtitle is-6">${recent}</p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="#" onclick="likeStar('${name}')" class="card-footer-item has-text-info">
+                        위로!
+                        <span class="icon">
+              <i class="fas fa-thumbs-up"></i>
+            </span>
+                    </a>
+                    <a href="#" onclick="deleteStar('${name}')" class="card-footer-item has-text-danger">
+                        삭제
+                        <span class="icon">
+              <i class="fas fa-ban"></i>
+            </span>
+                    </a>
+                </footer>
+            </div>
+                 `
+
+                $('#star-box').append(tempHtml)
+            }
+
+            function likeStar(name)
+            {
+                alert(name)
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/like', // def like_star():
+                    data: {'name_give':name}, //요기에서 준 데이터는 백에서 request.form으로 받음
+                    success: function (response)
+                    {
+                        if (response['result'] == 'success')
+                        {
+                            alert("Like it :>");
+                            //reload를 안 하면 좋아요 갯수는 증가되지만, 화면의 좋아요는 변하지 않음
+                            window.location.reload()
+                        }
+                    }
+                });
+            }
+
+            function deleteStar(name)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/delete', //def delete_star():
+                    data: {},
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            let msg = response['msg'];
+                            alert(msg);
+                        }
+                    }
+                });
+            }
+
+        </script>
+    </head>
+    <body>
+        <section class="hero is-warning">
+            <div class="hero-body">
+                <div class="container center">
+                    <h1 class="title">
+                        마이 페이보릿 무비스타😆
+                    </h1>
+                    <h2 class="subtitle">
+                        순위를 매겨봅시다
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <div class="star-list" id="star-box">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img
+                                        src="https://search.pstatic.net/common/?src=https%3A%2F%2Fssl.pstatic.net%2Fsstatic%2Fpeople%2Fportrait%2F201807%2F20180731143610623-6213324.jpg&type=u120_150&quality=95"
+                                        alt="Placeholder image"
+                                />
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <a href="#" target="_blank" class="star-name title is-4">김다미 (좋아요: 3)</a>
+                            <p class="subtitle is-6">안녕, 나의 소울메이트(가제)</p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="#" onclick="likeStar('김다미')" class="card-footer-item has-text-info">
+                        위로!
+                        <span class="icon">
+              <i class="fas fa-thumbs-up"></i>
+            </span>
+                    </a>
+                    <a href="#" onclick="deleteStar('김다미')" class="card-footer-item has-text-danger">
+                        삭제
+                        <span class="icon">
+              <i class="fas fa-ban"></i>
+            </span>
+                    </a>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
