@@ -21,7 +21,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../homework/week5Homework" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../project_Moing" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -66,6 +66,7 @@
       <workItem from="1596263161515" duration="18000" />
       <workItem from="1596544406288" duration="6884000" />
       <workItem from="1596787925868" duration="2496000" />
+      <workItem from="1596980820225" duration="210000" />
     </task>
     <servers />
   </component>
@@ -73,10 +74,10 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1141" y="297" key="FileChooserDialogImpl" timestamp="1596788080083">
+    <state x="1141" y="297" key="FileChooserDialogImpl" timestamp="1596980829993">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1141" y="297" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1596788080083" />
+    <state x="1141" y="297" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1596980829993" />
     <state width="1068" height="267" key="GridCell.Tab.0.bottom" timestamp="1596553216151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
