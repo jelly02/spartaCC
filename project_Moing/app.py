@@ -15,7 +15,7 @@ def home():
 # 로그인 화면 보여주기
 @app.route('/login')
 def logintoss():
-    return render_template('loginpage.html')
+    return render_template('login.html')
 
 
 
