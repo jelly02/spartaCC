@@ -26,9 +26,28 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
 <!--===============================================================================================-->
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 	<!--카카오톡 로그인-->
 	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">모잉 Moing </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="#" class="nav-link">모잉 소개</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">모잉 PICK! </a></li>
+            <li class="nav-item"><a href="#" class="nav-link">게시판</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">쇼핑몰</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- END nav -->
 
 </head>
 <body>
@@ -37,12 +56,10 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
 					<span class="login100-form-title p-b-26">
-						Login
-					</span>
-					<span class="login100-form-title p-b-48">
-						<h2><strong><a href="#">모잉</a></strong></h2>
+						로그인
 					</span>
 
+					<br />
 					<div class="wrap-input100 validate-input" data-validate = "아이디를 입력해주세요">
 						<input class="input100" type="text" name="email">
 						<span class="focus-input100" data-placeholder="아이디"></span>
@@ -54,6 +71,16 @@
 						</span>
 						<input class="input100" type="password" name="pass">
 						<span class="focus-input100" data-placeholder="비밀번호"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								로그인
+							</button>
+						</div>
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -86,7 +113,8 @@
 						});
 					</script>
 
-					<div class="text-center p-t-115">
+					<br />
+					<div class="text-center ">
 						<span class="txt1">
 							<a href="sign-up.html">회원가입</a>
 						</span>
