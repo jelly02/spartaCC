@@ -17,6 +17,12 @@ def home():
 def logintoss():
     return render_template('login.html')
 
+# 회원가입 화면 보여주기
+@app.route('/sign')
+def signup_toss():
+    return render_template('sign-up.html')
+
+
 
 
 
