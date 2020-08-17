@@ -9,13 +9,15 @@ soup = BeautifulSoup(data.text,'html.parser')
 test = soup.select('div.group_guide >ul >li')
 # print(test)
 
-# img alt:상품이름, img src:상품 이미지,
+# img alt:상품이름, img src:상품 이미지, img src:이미지링크
 
 for test2 in test:
     a_tag= test2.select_one('div>a')
     name = test2.select_one('a')['href']
     # print(name)
     if a_tag is not None:
+        link = test2.select_one('a')['href'] #상품 링크
         prdName = test2.select_one('img')['alt'] #상품 이름
         prdImg = test2.select_one('img')['src'] #상품 이미지
-        print(prdImg,prdName)
+        prdPrice = test2.select_one('em')['title'] #상품 가격
+        print(link, "+", prdName, "+", prdImg, "+", prdPrice)

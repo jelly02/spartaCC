@@ -7,19 +7,18 @@ data = requests.get('https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=u
 
 soup = BeautifulSoup(data.text,'html.parser')
 
-test = soup.select_one('#main_pack > div.sp_shop_default.section._shopping_guide_view > div.group_item > div.group_guide > div:nth-child(1) > div > ul > li:nth-child(1) > div > div.detail_area > div > div.tit > a')
-test2 = soup.select('#main_pack > div.sp_shop_default.section._shopping_guide_view > div.group_item > div.group_guide > div:nth-child(1) > div > ul >li> div > div')
-# print(test2)
-
+# test = soup.select_one('#main_pack > div.sp_shop_default.section._shopping_guide_view > div.group_item > div.group_guide > div:nth-child(1) > div > ul > li:nth-child(1) > div > div.detail_area > div > div.tit > a')
+# test2 = soup.select('#main_pack > div.sp_shop_default.section._shopping_guide_view > div.group_item > div.group_guide > div:nth-child(1) > div > ul >li> div > div')
+test= soup.select('div.group_guide >ul >li')
 # img alt:상품이름 , img src:이미지링크 , em title,em.text:가격
 
-for test3 in test2:
-    a_tag = test3.select_one('div > a')
+for test2 in test:
+    a_tag= test2.select_one('div>a')
 
+    # print(name)
     if a_tag is not None:
-        prdName = test3.select_one('img')['alt'] #상품 이름
-        prdImg = test3.select_one('img')['src'] #상품 이미지 width="133"
-        # prdPrice = test3.select_one('em')['title'] 안됨
-
-        print(prdName,prdImg) #네이버페이 플러스 https://ssl.pstatic.net/sstatic/search/pc/2016/img/ico_npay_plus3.png 가 같이 불러온다. 빼야하는데..
-
+        link = test2.select_one('a')['href'] #상품 링크
+        prdName = test2.select_one('img')['alt'] #상품 이름
+        prdImg = test2.select_one('img')['src'] #상품 이미지
+        prdPrice = test2.select_one('em')['title'] #상품 가격
+        print(link,"+",prdName,"+",prdImg,"+",prdPrice)
