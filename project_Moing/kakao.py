@@ -7,3 +7,7 @@ data = requests.get('https://shoppinghow.kakao.com/search/10%EB%8C%80%20%EC%83%9
 
 soup = BeautifulSoup(data.text,'html.parser')
 print(soup)
+##Z7396303091 > div.wrap_thumb > a > img
+
+test2 = soup.select("div.wrap_prod_list")
+print(test2)
