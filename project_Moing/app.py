@@ -42,7 +42,7 @@ def recommend_toss():
     user_num = request.args.get('genNum')
     print(user_num)
     #DB에 해당 연령대 상품들을 가져와서
-    result = list(db.genList.find({'genNum' : user_num}))
+    result = list(db.genList.find({'user_num'}))
     #prdList에 담아 보낸다
     return jsonify({'result':'success', 'prdList':result})
 
