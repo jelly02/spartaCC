@@ -16,13 +16,12 @@ test= soup.select('div.group_guide >ul >li')
 
 for test2 in test:
     a_tag= test2.select_one('div>a')
-    price_tag = test2.select_one('div>a>div')
+    price_tag = test2.select_one('div.detail_area>div')
     print(price_tag)
 
-    # print(name)
+    print(price_tag)
     if a_tag is not None:
         link = test2.select_one('a')['href'] #상품 링크
         prdName = test2.select_one('img')['alt'] #상품 이름
         prdImg = test2.select_one('img')['src'] #상품 이미지
-        prdPrice = price_tag.select_one('em')['title'] #상품 가격
-        # print(link,"+",prdName,"+",prdImg,prdPrice)
+        prdPrice = price_tag.select_one('div')['title'] #상품 가격

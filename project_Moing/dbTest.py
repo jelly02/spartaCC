@@ -3,10 +3,10 @@ from flask import Flask, render_template, jsonify, request
 import requests
 from bs4 import BeautifulSoup
 
-# app = Flask(__name__)
-#
-# client = MongoClient('localhost', 27017)
-# db = client.dbmoing
+app = Flask(__name__)
+
+client = MongoClient('localhost', 27017)
+db = client.moing
 
 # age[] = 10, 20, 30, 40, 50, 60(여자친구), 70(남자친구), 80(부모님)
 # 1. 네이버 : 10~50번 까지 url 파싱 가능, 60,70,80 따로 만들어야 함
@@ -59,7 +59,7 @@ for age in ages:
 # print(total_db[0])
 # print(total_db[1])
 
-#1-2. 네이버 여자친구 크롤링
+#1-2. 네이버 여자친구 크롤링 0
 def naverGfUrl():
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
@@ -82,8 +82,18 @@ def naverGfUrl():
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = item.select_one('em')['title']  # 상품 가격
-            print(genCode,link, "+", prdName, "+", prdImg, "+", prdPrice)
+            # print(genCode,"+",link, "+", prdName, "+", prdImg, "+", prdPrice)
 
+            prdList = {
+                'genCode':genCode,
+                'prdLink':link,
+                'prdImg': prdImg,
+                'prdName':prdName,
+                'prdPrice':prdPrice
+            }
+
+            db.HapB.insert_one(prdList)
+    print('네이버 여자친구 크롤링 저장 완료!')
 
 #1-3. 네이버 남자친구 크롤링
 def naverBfUrl():
@@ -107,7 +117,16 @@ def naverBfUrl():
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = item.select_one('em')['title']  # 상품 가격
-            print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('네이버 남자친구 크롤링 저장 완료!')
+
 
 #1-4. 텐바이텐 10대~30대 크롤링
 def txt10to30Url(age):
@@ -131,17 +150,17 @@ def txt10to30Url(age):
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = price_tag.text # 상품 가격
-            # print(link,"+",prdName,"+",prdImg,"+",prdPrice)
+            print("if"+link,"+",prdName,"+",prdImg,"+",prdPrice)
 
             temp_list.append(prdPrice)
-
-    total_db.append(temp_list)
+    print("for"+temp_list)
+    # total_db.append(temp_list)
 
 total_db = []
 ages = [10, 20, 30]
 for age in ages:
     txt10to30Url(age)
-# print(total_db[0])
+
 
 #1-5. 텐바이텐 여자친구 크롤링
 def txtGfUrl():
@@ -165,8 +184,17 @@ def txtGfUrl():
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = price_tag.text  # 상품 가격
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('텐바이텐 여자친구 크롤링 저장 완료!')
 
-            # print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+
 
 #1-6. 텐바이텐 남자친구 크롤링
 def txtBfUrl():
@@ -191,7 +219,16 @@ def txtBfUrl():
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = price_tag.text  # 상품 가격
 
-            print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+            # print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('텐바이텐 남자친구 크롤링 저장 완료!')
 
 #1-7. 텐바이텐 부모님 크롤링
 def txtMFUrl():
@@ -215,5 +252,17 @@ def txtMFUrl():
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = price_tag.text  # 상품 가격
+            # print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('텐바이텐 부모님 크롤링 저장 완료!')
 
-            print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+
+#db 실행
+
