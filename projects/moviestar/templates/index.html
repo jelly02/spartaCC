@@ -110,7 +110,8 @@
             function likeStar(name)
             {
                 alert(name)
-                $.ajax({
+                $.ajax
+                ({
                     type: 'POST',
                     url: '/api/like', // def like_star():
                     data: {'name_give':name}, //요기에서 준 데이터는 백에서 request.form으로 받음

@@ -23,4 +23,4 @@ for age in ages:
                 prdImg = item.select_one('img')['src'] #상품 이미지
                 prdPrice = item.select_one('em')['title'] #상품 가격
 
-                #print(link,"+",prdName,"+",prdImg,"+",prdPrice) (edited)
+                print(link,"+",prdName,"+",prdImg,"+",prdPrice)
