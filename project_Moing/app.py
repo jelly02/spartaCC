@@ -19,8 +19,9 @@ def logintoss():
 
 # 회원가입 화면 보여주기
 @app.route('/sign')
-def signup_toss():
+def signup():
     return render_template('sign-up.html')
+
 
 @app.route('/recommend')
 def recommend():
@@ -43,7 +44,6 @@ def test():
     # 2. DB에 해당 연령대 상품들을 가져와서
     result = list(db.genList.find({'genNum' : gen_receive}))
     # 3. prdList에 담아 보낸다
-    return jsonify({'result':'success', 'prdList':result})
 
 
 
