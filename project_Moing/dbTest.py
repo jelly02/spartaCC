@@ -68,19 +68,22 @@ def naverGfUrl():
         headers=headers)
     soup = BeautifulSoup(data.text, 'html.parser')
 
-    test = soup.select('div.group_guide >ul >li')
+    items = soup.select('div.group_guide >ul >li')
     # img alt:상품이름 , img src:이미지링크 , em title,em.text:가격
+    genCode = 60;
 
-    for test2 in test:
-        a_tag = test2.select_one('div>a')
+    for item in items:
+        a_tag = item.select_one('div>a')
 
         # print(name)
         if a_tag is not None:
-            link = test2.select_one('a')['href']  # 상품 링크
-            prdName = test2.select_one('img')['alt']  # 상품 이름
-            prdImg = test2.select_one('img')['src']  # 상품 이미지
-            prdPrice = test2.select_one('em')['title']  # 상품 가격
-            print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+            genCode
+            link = item.select_one('a')['href']  # 상품 링크
+            prdName = item.select_one('img')['alt']  # 상품 이름
+            prdImg = item.select_one('img')['src']  # 상품 이미지
+            prdPrice = item.select_one('em')['title']  # 상품 가격
+            print(genCode,link, "+", prdName, "+", prdImg, "+", prdPrice)
+
 
 #1-3. 네이버 남자친구 크롤링
 def naverBfUrl():
@@ -91,17 +94,19 @@ def naverBfUrl():
         headers=headers)
     soup = BeautifulSoup(data.text, 'html.parser')
 
-    test = soup.select('div.group_guide >ul >li')
+    items = soup.select('div.group_guide >ul >li')
+    genCode = 70;
 
-    for test2 in test:
-        a_tag = test2.select_one('div>a')
+    for item in items:
+        a_tag = item.select_one('div>a')
 
         # print(name)
         if a_tag is not None:
-            link = test2.select_one('a')['href']  # 상품 링크
-            prdName = test2.select_one('img')['alt']  # 상품 이름
-            prdImg = test2.select_one('img')['src']  # 상품 이미지
-            prdPrice = test2.select_one('em')['title']  # 상품 가격
+            genCode
+            link = item.select_one('a')['href']  # 상품 링크
+            prdName = item.select_one('img')['alt']  # 상품 이름
+            prdImg = item.select_one('img')['src']  # 상품 이미지
+            prdPrice = item.select_one('em')['title']  # 상품 가격
             print(link, "+", prdName, "+", prdImg, "+", prdPrice)
 
 #1-4. 텐바이텐 10대~30대 크롤링
@@ -116,22 +121,99 @@ def txt10to30Url(age):
     data = requests.get(url)
     soup = BeautifulSoup(data.text, 'html.parser')
     items = soup.select('div.pdtWrap>ul>li ')
+
     for item in items:
         a_tag = item.select_one('div>a')
+        price_tag = item.select_one('div>div>p>span')
+
         if a_tag is not None:
             link = "http://www.10x10.co.kr"+item.select_one('a')['href']  # 상품 링크
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
-            prdPrice = item.select_one('em')['title']  # 상품 가격
+            prdPrice = price_tag.text # 상품 가격
             # print(link,"+",prdName,"+",prdImg,"+",prdPrice)
 
-            temp_list.append(prdName)
+            temp_list.append(prdPrice)
 
     total_db.append(temp_list)
 
-
 total_db = []
-ages = [10, 20]
+ages = [10, 20, 30]
 for age in ages:
     txt10to30Url(age)
-print(total_db[0])
+# print(total_db[0])
+
+#1-5. 텐바이텐 여자친구 크롤링
+def txtGfUrl():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'http://www.10x10.co.kr/search/search_result.asp?rect=%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC+%EC%84%A0%EB%AC%BC&prvtxt=%EC%97%84%EB%A7%88+%EC%84%A0%EB%AC%BC&rstxt=%EC%97%84%EB%A7%88+%EC%84%A0%EB%AC%BC&extxt=&sflag=&dispCate=&cpg=1&chkr=False&chke=False&mkr=&sscp=N&psz=60&srm=be&iccd=&styleCd=&attribCd=&icoSize=M&arrCate=&deliType=&minPrc=&maxPrc=&lstDiv=search&subshopcd=&giftdiv=&prectcnt=869',
+        headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    items = soup.select('div.pdtWrap>ul>li ')
+    genCode = 60;
+
+    for item in items:
+        a_tag = item.select_one('div>a')
+        price_tag = item.select_one('div>div>p>span')
+
+        if a_tag is not None:
+            genCode
+            link = "http://www.10x10.co.kr"+item.select_one('a')['href']  # 상품 링크
+            prdName = item.select_one('img')['alt']  # 상품 이름
+            prdImg = item.select_one('img')['src']  # 상품 이미지
+            prdPrice = price_tag.text  # 상품 가격
+
+            # print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+
+#1-6. 텐바이텐 남자친구 크롤링
+def txtBfUrl():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'http://www.10x10.co.kr/search/search_result.asp?rect=%EB%82%A8%EC%9E%90%EC%B9%9C%EA%B5%AC+%EC%84%A0%EB%AC%BC&prvtxt=%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC+%EC%84%A0%EB%AC%BC&rstxt=%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC+%EC%84%A0%EB%AC%BC&extxt=&sflag=&dispCate=&cpg=1&chkr=False&chke=False&mkr=&sscp=N&psz=60&srm=be&iccd=&styleCd=&attribCd=&icoSize=M&arrCate=&deliType=&minPrc=&maxPrc=&lstDiv=search&subshopcd=&giftdiv=&prectcnt=7268',
+        headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    items = soup.select('div.pdtWrap>ul>li ')
+    genCode = 70;
+
+    for item in items:
+        a_tag = item.select_one('div>a')
+        price_tag = item.select_one('div>div>p>span')
+
+        if a_tag is not None:
+            genCode
+            link = "http://www.10x10.co.kr" + item.select_one('a')['href']  # 상품 링크
+            prdName = item.select_one('img')['alt']  # 상품 이름
+            prdImg = item.select_one('img')['src']  # 상품 이미지
+            prdPrice = price_tag.text  # 상품 가격
+
+            print(link, "+", prdName, "+", prdImg, "+", prdPrice)
+
+#1-7. 텐바이텐 부모님 크롤링
+def txtMFUrl():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'http://www.10x10.co.kr/search/search_result.asp?rect=%EB%B6%80%EB%AA%A8%EB%8B%98+%EC%84%A0%EB%AC%BC&prvtxt=%EC%8A%A4%EC%8A%B9%EC%9D%98%EB%82%A0+%EC%84%A0%EB%AC%BC&rstxt=%EC%8A%A4%EC%8A%B9%EC%9D%98%EB%82%A0+%EC%84%A0%EB%AC%BC&extxt=&sflag=&dispCate=&cpg=1&chkr=False&chke=False&mkr=&sscp=N&psz=60&srm=be&iccd=&styleCd=&attribCd=&icoSize=M&arrCate=&deliType=&minPrc=&maxPrc=&lstDiv=search&subshopcd=&giftdiv=&prectcnt=1243',
+        headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    items = soup.select('div.pdtWrap>ul>li ')
+    genCode = 80;
+
+    for item in items:
+        a_tag = item.select_one('div>a')
+        price_tag = item.select_one('div>div>p>span')
+
+        if a_tag is not None:
+            genCode
+            link = "http://www.10x10.co.kr" + item.select_one('a')['href']  # 상품 링크
+            prdName = item.select_one('img')['alt']  # 상품 이름
+            prdImg = item.select_one('img')['src']  # 상품 이미지
+            prdPrice = price_tag.text  # 상품 가격
+
+            print(link, "+", prdName, "+", prdImg, "+", prdPrice)

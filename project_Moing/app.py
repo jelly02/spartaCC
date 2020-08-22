@@ -22,13 +22,24 @@ def logintoss():
 def signup():
     return render_template('sign-up.html')
 
-
+#연령별 상품 추천 페이지 보여주기
 @app.route('/recommend')
 def recommend():
     return render_template('introducePrd.html')
 
-#연령별 상품 추천 페이지 보여주기
-@app.route('/recommend', methods=['GET'])
+@app.route('/recommend2',methods=['GET'])
+def test():
+    # 이 부분입니다!!!!
+    # 위에 것 지우고 이거 사용해서 만들어보시겠어요~~??
+
+    # 1. 유저가 선택한 연령대 숫자를 받고
+    gen_receive = request.args.get('genNum')
+    print(gen_receive)
+    # 2. DB에 해당 연령대 상품들을 가져와서 (수정)
+    result = list(db.genList.find({gen_receive}))
+    # 3. prdList에 담아 보낸다
+    return jsonify({'result': 'success', 'prdList': result})
+
 
 
 
