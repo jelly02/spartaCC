@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <title>모잉 : 정책을 모으다</title>
+    <title>햅비 : 생일 선물 Pick! </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="모잉 Moing" />
-    <meta name="description" content="모잉 웹사이트" />
+    <meta name="author" content="햅비 HAP-B" />
+    <meta name="description" content="햅비 웹사이트" />
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -30,27 +30,26 @@
     <link rel="stylesheet" href="../static/css/icomoon.css">
     <link rel="stylesheet" href="../static/css/style.css">
 
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
 
         //연령대별 검색 함수
         function searchList(num) //버튼이 주는 연령대 숫자를 가져와서 DB에 넘겨줌
         {
-            alert(num);
-
+            // alert(num);
             $.ajax
             ({
-                type: "POST",
-                url: "/recommend",
-                data: {genNum:num},
+                type: "GET",
+                url: "/recommend2?genNum="+num,
+                data: {},
                 success: function (response)
                 {
                     if (response["result"] == "success")
                     {
-                        alert(response["msg"]);
                         window.location.reload();
                      }
                  }
-            })
+            });
         }
 
         //상품 리스트 출력하기

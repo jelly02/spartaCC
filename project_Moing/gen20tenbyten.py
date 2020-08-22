@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-data = requests.get('http://www.10x10.co.kr/search/search_result.asp?rect=20%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&prvtxt=10%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&rstxt=10%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&extxt=&sflag=&dispCate=&cpg=1&chkr=False&chke=False&mkr=&sscp=N&psz=60&srm=be&iccd=&styleCd=&attribCd=&icoSize=M&arrCate=&deliType=&minPrc=&maxPrc=&lstDiv=search&subshopcd=&giftdiv=&prectcnt=48', headers=headers)
+data = requests.get('http://www.10x10.co.kr/search/search_result.asp?rect=20%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&exkw=1', headers=headers)
 
 soup = BeautifulSoup(data.text,'html.parser')
 # print(soup)
