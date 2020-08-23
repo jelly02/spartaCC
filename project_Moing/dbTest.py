@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)
 
 client = MongoClient('localhost', 27017)
-db = client.moing
+db = client.dbHapB
 
 # age[] = 10, 20, 30, 40, 50, 60(여자친구), 70(남자친구), 80(부모님)
 # 1. 네이버 : 10~50번 까지 url 파싱 가능, 60,70,80 따로 만들어야 함
@@ -46,15 +46,15 @@ def naver10to50Url(age):
             prdPrice = item.select_one('em')['title'] #상품 가격
             # print(link,"+",prdName,"+",prdImg,"+",prdPrice)
 
-            temp_list.append(prdName)
+            temp_list.append(age,link,prdName,prdImg,prdPrice)
 
-    total_db.append(temp_list)
+    naver10to50_total.append(temp_list)
 
-total_db = []
+naver10to50_total = []
 ages = [10, 20, 30, 40, 50]
 for age in ages:
-    # print(str(age) + "'s present!")
-    naver10to50Url(age)
+    # print(str(age) + "'s present!"+naver10to50_total)
+    print(naver10to50_total)
 
 # print(total_db[0])
 # print(total_db[1])
@@ -150,16 +150,18 @@ def txt10to30Url(age):
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = price_tag.text # 상품 가격
-            print("if"+link,"+",prdName,"+",prdImg,"+",prdPrice)
-
+            # print("if"+link,"+",prdName,"+",prdImg,"+",prdPrice)
             temp_list.append(prdPrice)
     print("for"+temp_list)
-    # total_db.append(temp_list)
+    total_db.append(temp_list)
 
 total_db = []
 ages = [10, 20, 30]
 for age in ages:
     txt10to30Url(age)
+
+txt10to30Url()
+
 
 
 #1-5. 텐바이텐 여자친구 크롤링
