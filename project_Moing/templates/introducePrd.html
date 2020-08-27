@@ -42,8 +42,11 @@
                 type: "GET",
                 url: "/recommend2?genNum="+num,
                 data: {},
-                success: function (response) {
+                success: function (response)
+                {
                     let getDb = response['prdList']
+
+                    alert(getDb)
 
                     for (let i = 0; i < getDb.length; i++)
                     {
@@ -59,7 +62,7 @@
                          <div class="card-body">
                            <h5 class="card-title">"${name}"</h5>
                             <p class="card-text">"${price}"</p>
-                            <a href="${link}" class="btn btn-primary">More</a>
+                            <a href="${link}" class="btn btn-primary">바로보기</a>
                             </div>
                           </div>
                         </div>`;
@@ -135,11 +138,9 @@
               <button onclick="searchList(30)" type="button" class="btn btn-primary btn-lg">30대</button>
               <button onclick="searchList(40)" type="button" class="btn btn-primary btn-lg">40대</button>
               <button onclick="searchList(50)" type="button" class="btn btn-primary btn-lg">50대</button>
-              <button onclick="searchList(60)" type="button" class="btn btn-primary btn-lg">부모님</button>
               <button onclick="searchList(60)" type="button" class="btn btn-primary btn-lg">여자친구</button>
-              <button onclick="searchList(80)" type="button" class="btn btn-primary btn-lg">남자친구</button>
-          </div>
-
+               <button onclick="searchList(70)" type="button" class="btn btn-primary btn-lg">남자친구</button>
+              <button onclick="searchList(80)" type="button" class="btn btn-primary btn-lg">부모님</button>
       </div>
     </section>
 
@@ -148,15 +149,7 @@
       <div class="container">
          <div class="row">
            <div class="col-4" id="cardList">
-             <div class="card">
-                 <img src="https://image.dongascience.com/Photo/2018/01/15159739972169[1].jpg" alt="" class="card-img-top" />
-                 <div class="card-body">
-                   <h5 class="card-title">Lorem</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas sed sem ut malesuada.</p>
-                    <a href="#" class="btn btn-primary">More</a>
-                    </div>
-                  </div>
-                </div>
+           </div>
          </div>
       </div>
   </main>

@@ -29,6 +29,28 @@
     <link rel="stylesheet" href="../static/css/flaticon.css">
     <link rel="stylesheet" href="../static/css/icomoon.css">
     <link rel="stylesheet" href="../static/css/style.css">
+
+     <style>
+     .card-img-top
+     {
+         width: 100%;
+        height: 15vw;
+        object-fit: cover;
+     }
+     </style>
+      
+      <script>
+          
+          function choose(stuff)
+          {
+              alert(stuff);
+
+              $('.card').empty();
+
+          }
+          
+      </script>
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -60,22 +82,96 @@
       <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2>Q. 해삐의 회원들이 가장 받고 싶어하는 선물은? <br></h2>
+            <h2>Q. 해삐 회원들이 가장 <br />받고 싶어하는 선물은? <br></h2>
           </div>
-        </div>>
+        </div>
             <div class="row">
                 <div class="col-4">
                   <div class="card">
-                    <img src="https://image.dongascience.com/Photo/2018/01/15159739972169[1].jpg" alt="" class="card-img-top" />
+                    <img src="https://www.duluthtrading.com/dw/image/v2/BBNM_PRD/on/demandware.static/-/Sites-dtc-master-catalog/default/dwfa2afe65/images/large/19951_alt_02.jpg?sw=600&sh=600&sm=fit" alt="" class="card-img-top" />
                     <div class="card-body">
-                      <h5 class="card-title">Lorem</h5>
-                         <button type="button" class="btn btn-warning">선택</button>
+                      <h5 class="card-title">지갑</h5>
+                         <button type="button" onclick="choose('wallet')" class="btn btn-warning">선택</button>
                     </div>
                   </div>
                 </div>
-
-
-        </div>
+                <div class="col-4">
+                    <div class="card">
+                      <img src="https://www.erasmusmaiorescu.ro/Proiecte/AS/imageslidermaker/ism/image/slides/_u/1520422762767_884655.jpg" alt="" class="card-img-top" />
+                      <div class="card-body">
+                        <h5 class="card-title">향수</h5>
+                           <button type="button" onclick="choose('perfume')" class="btn btn-warning">선택</button>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-4">
+                    <div class="card">
+                      <img src="https://shopeesgblog.com/wp-content/uploads/2018/11/KSKINCARE_Blog-696x522.jpg" alt="" class="card-img-top" />
+                      <div class="card-body">
+                        <h5 class="card-title">화장품</h5>
+                           <button type="button" onclick="choose('cosmetics')" class="btn btn-warning">선택</button>
+                      </div>
+                    </div>
+                  </div>
+           </div>
+            <div class="row">
+                    <div class="col-4">
+                      <div class="card">
+                        <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/157360960874266042.jpg?gif=1&w=640&h=640&c=c" alt="" class="card-img-top" />
+                        <div class="card-body">
+                          <h5 class="card-title">문구류</h5>
+                             <button type="button" onclick="choose('stationery')" class="btn btn-warning">선택</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                          <img src="https://archivenew.vop.co.kr/images/8fc5d1792af708d7e3260be624f752cc/2018-07/24010143_3.jpg" alt="" class="card-img-top" />
+                          <div class="card-body">
+                            <h5 class="card-title">전자제품</h5>
+                               <button type="button" onclick="choose('electronics')" class="btn btn-warning">선택</button>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-4">
+                        <div class="card">
+                          <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/158613483706373016.jpg?gif=1&w=640&h=640&c=c" alt="" class="card-img-top" />
+                          <div class="card-body">
+                            <h5 class="card-title">악세서리</h5>
+                               <button type="button" onclick="choose('accessory')" class="btn btn-warning">선택</button>
+                          </div>
+                        </div>
+                      </div>
+             </div>
+             <div class="row">
+                    <div class="col-4">
+                      <div class="card">
+                        <img src="https://img.maisonkorea.com/2018/02/msk_5a8143525efa8.jpg" alt="" class="card-img-top" />
+                        <div class="card-body">
+                          <h5 class="card-title">인테리어 소품</h5>
+                             <button type="button" onclick="choose('interior')" class="btn btn-warning">선택</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                          <img src="https://media.dongwon.com/upload/image/post/104832158tsxf/ps104832597mn.jpg" alt="" class="card-img-top" />
+                          <div class="card-body">
+                            <h5 class="card-title">건강식품</h5>
+                               <button type="button" onclick="choose('health')" class="btn btn-warning">선택</button>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-4">
+                        <div class="card">
+                          <img src="https://img.khan.co.kr/lady/201405/20140512163329_1_lady05_90.jpg" alt="" class="card-img-top" />
+                          <div class="card-body">
+                            <h5 class="card-title">가전제품</h5>
+                               <button type="button" onclick="choose('home')" class="btn btn-warning">선택</button>
+                          </div>
+                        </div>
+                      </div>
+             </div>
       </div>
     </section>
 

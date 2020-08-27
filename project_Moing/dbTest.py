@@ -51,14 +51,14 @@ def naver10to50Url(age):
             prdPrice = item.select_one('em')['title'] #상품 가격
             print(link,"+",prdName,"+",prdImg,"+",prdPrice)
 
-            temp_list.append(age,link,prdName,prdImg,prdPrice)
+            temp_list.append([link,prdName,prdImg,prdPrice])
             print("if 문 안의 ",temp_list)
 
     naver10to50_total.append(temp_list)
 
 for age in ages:
-    naver10to50_total(age)
-print("함수 밑 print",naver10to50_total)
+    naver10to50Url(age)
+
 
 
 #1-2. 네이버 여자친구 크롤링 0

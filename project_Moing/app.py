@@ -5,7 +5,7 @@ from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 client = MongoClient('localhost', 27017)
-db = client.dbmoing
+db = client.moing
 
 # HTML 화면 보여주기
 @app.route('/')
@@ -36,13 +36,10 @@ def test():
 
     # 2. DB에 해당 연령대 상품들을 가져와서 (수정)
     result = list(db.HapB.find({}))
-    print("result list+",result)
+    print(result)
 
     # 3. prdList에 담아 보낸다
-    # return jsonify({'result': 'success', 'prdList': result})
-
-
-
+    return jsonify({'result': 'success', 'prdList': result})
 
 
 if __name__ == '__main__':
