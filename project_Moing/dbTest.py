@@ -268,5 +268,14 @@ def txtMFUrl():
 #db 실행
 # check = list(db.HapB.find({'genCode':60}))
 # print(check)
-#
-naverGfUrl()
+
+#네이버 여자친구 크롤링 저장 완료
+#naverGfUrl()
+#네이버 남자친구 크롤링 저장 완료
+#naverBfUrl()
+#텐바이텐 여자친구 크롤링 저장 완료
+# txtGfUrl()
+#텐바이텐 남자친구 크롤링 저장 완료
+# txtBfUrl()
+#텐바이텐 부모님 크롤링 저장 완료
+# txtMFUrl()

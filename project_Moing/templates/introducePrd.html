@@ -31,12 +31,22 @@
     <link rel="stylesheet" href="../static/css/style.css">
 
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
+    <style>
+     .card-img-top
+     {
+         width: 100%;
+        height: 15vw;
+        object-fit: cover;
+     }
+     </style>
+
+
+      <script>
 
         //연령대별 검색 함수
         function searchList(num) //버튼이 주는 연령대 숫자를 가져와서 DB에 넘겨줌
         {
-            // alert(num);
+
             $.ajax
             ({
                 type: "GET",
@@ -45,8 +55,6 @@
                 success: function (response)
                 {
                     let getDb = response['prdList']
-
-                    alert(getDb)
 
                     for (let i = 0; i < getDb.length; i++)
                     {
@@ -57,36 +65,21 @@
                         let name = db['prdName']
                         let price = db['prdPrice']
 
-                        let tempHtml = `<div class="card">
-                         <img src="${img}" alt="" class="card-img-top" />
-                         <div class="card-body">
-                           <h5 class="card-title">"${name}"</h5>
-                            <p class="card-text">"${price}"</p>
-                            <a href="${link}" class="btn btn-primary">바로보기</a>
+                        let tempHtml = ` <div class="col-4">
+                          <div class="card">
+                            <img src="${img}" alt="" class="card-img-top" />
+                            <div class="card-body">
+                              <h5 class="card-title">"${name}"</h5>
+                              <p class="card-text">"${price}"</p>
+                                 <a href=${link}"><button type="button" class="btn btn-warning">바로보기</button></a>
                             </div>
                           </div>
-                        </div>`;
+                            </div>`
 
-                        $('#cardList').append(tempHtml);
+                        $('#content').append(tempHtml);
                     }
                 }
             });
-        }
-
-        //상품 리스트 출력하기
-        function makeCard()
-        {
-            let tempHtml = `<div class="card">
-                 <img src="" alt="" class="card-img-top" />
-                 <div class="card-body">
-                   <h5 class="card-title">Lorem</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas sed sem ut malesuada.</p>
-                    <a href="#" class="btn btn-primary">More</a>
-                    </div>
-                  </div>
-                </div>`;
-
-            $('#cardList').append(tempHtml);
         }
 
 
@@ -106,7 +99,7 @@
             <li class="nav-item"><a href="#" class="nav-link">햅비 소개</a></li>
             <li class="nav-item"><a href="#" class="nav-link">해삐'S PICK! </a></li>
             <li class="nav-item"><a href="board.html" class="nav-link">게시판</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">해삐 쇼핑몰</a></li>
+            <li class="nav-item"><a href="/userChoose" class="nav-link">해삐 회원'S PICK!</a></li>
             <!--로그인 했을 때 처리-->
             <li class="nav-item"><a href="login.html" class="nav-link">로그인/로그아웃<i class="fas fa-user"></i></a></li>
             <li class="nav-item"><a href="#" class="nav-link">계정 설정<i class="fas fa-cog"></i></a></li>
@@ -132,7 +125,7 @@
           </div>
         </div>
 
-          <div class="justify-content-center" style="margin-left: 20%">
+          <div style="text-align: center;">
               <button onclick="searchList(10)" type="button" class="btn btn-primary btn-lg">10대</button>
               <button onclick="searchList(20)" type="button" class="btn btn-primary btn-lg">20대</button>
               <button onclick="searchList(30)" type="button" class="btn btn-primary btn-lg">30대</button>
@@ -141,21 +134,26 @@
               <button onclick="searchList(60)" type="button" class="btn btn-primary btn-lg">여자친구</button>
                <button onclick="searchList(70)" type="button" class="btn btn-primary btn-lg">남자친구</button>
               <button onclick="searchList(80)" type="button" class="btn btn-primary btn-lg">부모님</button>
-      </div>
+         </div>
     </section>
 
 
-  <main>
+<!--  <main>-->
+<!--      <div class="container">-->
+<!--         <div class="row">-->
+<!--           <div class="col-4" id="cardList">-->
+<!--           </div>-->
+<!--         </div>-->
+<!--      </div>-->
+<!--  </main>-->
+
+  <section >
       <div class="container">
-         <div class="row">
-           <div class="col-4" id="cardList">
-           </div>
-         </div>
+          <div class="row" id="content">
+
+          </div>
       </div>
-  </main>
-
-
-
+  </section>
 
 
   </body>

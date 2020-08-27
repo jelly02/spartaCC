@@ -27,16 +27,33 @@ def signup():
 def recommend():
     return render_template('introducePrd.html')
 
+#유저들이 뽑은 생일선물 투표 페이지 보여주기
+@app.route('/userChoose')
+def userChoose():
+    return render_template('userChoose.html')
+
+@app.route('/userChooseGet',methods=['POST'])
+def userChooseGet():
+    choose = request.form['user_give']
+    print(choose)
+    # plus = db.vote.fine_one({})
+
+
 @app.route('/recommend2',methods=['GET'])
 def test():
 
     # 1. 유저가 선택한 연령대 숫자를 받고
     gen_receive = request.args.get('genNum')
-    # print("hello app.py test()"+gen_receive)
 
-    # 2. DB에 해당 연령대 상품들을 가져와서 (수정)
-    result = list(db.HapB.find({}))
-    print(result)
+    # Check type of gen_receive
+    # print(type(gen_receive))
+
+    # if ger_recevie == int -> str(gen_receive)
+    # if gen_receive == str -> int(gen_receive)
+
+    # 2. DB에 해당 연령대 상품들을 가져와서 / id:False를 안 하면 직렬화 에러가 난다
+    result = list(db.HapB.find({'genCode':int(gen_receive)}, {'_id': False}))
+    # print("여긴 back이야",result)
 
     # 3. prdList에 담아 보낸다
     return jsonify({'result': 'success', 'prdList': result})

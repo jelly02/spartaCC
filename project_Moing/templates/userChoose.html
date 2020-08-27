@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <title>모잉 : 정책을 모으다</title>
+    <title>햅비 : 생일 선물 Pick!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="모잉 Moing" />
-    <meta name="description" content="모잉 웹사이트" />
+    <meta name="author" content="햅비 HAP-B" />
+    <meta name="description" content="햅비 웹사이트" />
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -45,7 +45,28 @@
           {
               alert(stuff);
 
-              $('.card').empty();
+              //카드 파트 지우기
+              $('.col-4').empty();
+              $('#question').empty();
+              //질문 내용 바꾸기 + 사용자가 고른 값을 화면에 출력해주기
+              $('#after').text("당신이 고른 선물은 "+stuff+" !!")
+              //다시 고르기 링크
+              let tempHtml = '<br /><h5><a href="">다시 고르기!</a></h5>'
+              $('#after').append(tempHtml);
+
+              $.ajax
+              ({
+                    type: "POST",
+                    url: "userChooseGet",
+                    data: {'user_give': stuff},
+                    success: function (response) {
+                        if (response['result'] == 'success')
+                        {
+                            // window.location.reload()
+                        }
+                    }
+                });
+
 
           }
           
@@ -65,7 +86,7 @@
             <li class="nav-item"><a href="#" class="nav-link">햅비 소개</a></li>
             <li class="nav-item"><a href="/recommend" class="nav-link">해삐'S PICK! </a></li>
             <li class="nav-item"><a href="board.html" class="nav-link">게시판</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">해삐 쇼핑몰</a></li>
+            <li class="nav-item"><a href="/userChoose" class="nav-link">해삐 회원'S PICK!</a></li>
             <!--로그인 했을 때 처리-->
             <li class="nav-item"><a href="/login" class="nav-link">로그인/로그아웃<i class="fas fa-user"></i></a></li>
             <li class="nav-item"><a href="#" class="nav-link">계정 설정<i class="fas fa-cog"></i></a></li>
@@ -82,7 +103,8 @@
       <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2>Q. 해삐 회원들이 가장 <br />받고 싶어하는 선물은? <br></h2>
+            <h3 id="question">Q. 해삐 회원들이 가장 <br />받고 싶어하는 선물은? <br></h3>
+            <h4 id="after"></h4>
           </div>
         </div>
             <div class="row">
