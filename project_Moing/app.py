@@ -36,6 +36,8 @@ def userChoose():
 def userChooseGet():
     choose = request.form['user_give']
     print(choose)
+
+
     # plus = db.vote.fine_one({})
 
 
@@ -57,6 +59,21 @@ def test():
 
     # 3. prdList에 담아 보낸다
     return jsonify({'result': 'success', 'prdList': result})
+
+
+#userChoose DB insert
+db.vote.insert_one({'genCode':'','name' : 'wallet','like':0})
+db.vote.insert_one({'genCode':'','name' : 'perfume','like':0})
+db.vote.insert_one({'genCode':'','name' : 'cosmetics','like':0})
+db.vote.insert_one({'genCode':'','name' : 'stationery','like':0})
+db.vote.insert_one({'genCode':'','name' : 'electronics','like':0})
+db.vote.insert_one({'genCode':'','name' : 'accessory','like':0})
+db.vote.insert_one({'genCode':'','name' : 'interior','like':0})
+db.vote.insert_one({'genCode':'','name' : 'health','like':0})
+db.vote.insert_one({'genCode':'','name' : 'home','like':0})
+
+
+
 
 
 if __name__ == '__main__':

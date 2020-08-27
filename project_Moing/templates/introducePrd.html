@@ -46,6 +46,7 @@
         //연령대별 검색 함수
         function searchList(num) //버튼이 주는 연령대 숫자를 가져와서 DB에 넘겨줌
         {
+             $('#content').empty()
 
             $.ajax
             ({
@@ -78,6 +79,7 @@
 
                         $('#content').append(tempHtml);
                     }
+
                 }
             });
         }
