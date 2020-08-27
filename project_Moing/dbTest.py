@@ -28,7 +28,7 @@ db = client.moing
 #1-1. 네이버 10~50대 크롤링
 
 ages = [10, 20, 30, 40, 50]
-print(ages)
+# print(ages)
 naver10to50_total = []
 
 def naver10to50Url(age):
@@ -56,8 +56,8 @@ def naver10to50Url(age):
 
     naver10to50_total.append(temp_list)
 
-for age in ages:
-    naver10to50Url(age)
+# for age in ages:
+#     naver10to50Url(age)
 
 
 
@@ -269,3 +269,4 @@ def txtMFUrl():
 # check = list(db.HapB.find({'genCode':60}))
 # print(check)
 #
+naverGfUrl()
