@@ -7,23 +7,6 @@ app = Flask(__name__)
 
 client = MongoClient('localhost', 27017)
 db = client.moing
-# db2 = client['moing']
-# print(type(db), type(db2))
-# print(id(db), id(db2), id(db)==id(db2))
-# print(client.database_names())
-# print(db.collection_names())
-prdList = {
-    'genCode': 10,
-    'prdLink': "naver.coom",
-    'prdImg': "img.com",
-    'prdName': "item",
-    'prdPrice': "100"
-}
-print(prdList)
-# print(type(age), type(link))
-result = db.HapB.insert_one(prdList)
-print(result.inserted_id)
-print(db.HapB.find_one(prdList))
 
 # age[] = 10, 20, 30, 40, 50, 60(여자친구), 70(남자친구), 80(부모님)
 # 1. 네이버 : 10~50번 까지 url 파싱 가능, 60,70,80 따로 만들어야 함
@@ -47,7 +30,6 @@ print(db.HapB.find_one(prdList))
 ages = [10, 20, 30, 40, 50]
 # print(ages)
 naver10to50_total = []
-
 
 def naver10to50Url(age):
     temp_list = []
@@ -77,16 +59,10 @@ def naver10to50Url(age):
                 'prdName': prdName,
                 'prdPrice': prdPrice
             }
-            print(prdList)
+
             # print(type(age), type(link))
             db.HapB.insert_one(prdList)
 
-            # temp_list.append([link,prdName,prdImg,prdPrice])
-            print("if 문 안의 ", temp_list)
-
-    # naver10to50_total.append(temp_list)
-
-#
 # for age in ages:
 #     naver10to50Url(age)
 
@@ -164,9 +140,14 @@ def naverBfUrl():
 
 
 # 1-4. 텐바이텐 10대~30대 크롤링
+
+ages = [10, 20, 30]
+txt10to30_total = []
+
 def txt10to30Url(age):
     temp_list = []
     temp_list.append(age)
+
     url_forward = 'http://www.10x10.co.kr/search/search_result.asp?rect='
     url_backword = '%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&exkw=1'
     url = url_forward + str(age) + url_backword
@@ -185,16 +166,19 @@ def txt10to30Url(age):
             prdName = item.select_one('img')['alt']  # 상품 이름
             prdImg = item.select_one('img')['src']  # 상품 이미지
             prdPrice = price_tag.text  # 상품 가격
-            # print("if"+link,"+",prdName,"+",prdImg,"+",prdPrice)
-            temp_list.append(prdPrice)
-    print("for" + temp_list)
-    total_db.append(temp_list)
 
-
-total_db = []
-ages = [10, 20, 30]
-
-
+            str_age = str(age)
+            prdList = {
+                'genCode': str_age,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            print(prdList)
+            # print(type(age), type(link))
+            db.HapB.insert_one(prdList)
+#
 # for age in ages:
 #     txt10to30Url(age)
 
@@ -300,17 +284,297 @@ def txtMFUrl():
             db.HapB.insert_one(prdList)
     print('텐바이텐 부모님 크롤링 저장 완료!')
 
+def gen10Naver():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=10%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    test = soup.select('div.group_guide >ul >li')
+    # img alt:상품이름 , img src:이미지링크 , em title,em.text:가격
+    genCode = 10
+
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+
+        # print(name)
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = test2.select_one('em')['title']  # 상품 가격
+
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen10Naver 크롤링 저장 완료!')
+
+def gen20Naver():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=20%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+    test = soup.select('div.group_guide >ul >li')
+    genCode = 20
+    # print(test)
+
+    # img alt:상품이름, img src:상품 이미지, img src:이미지링크
+
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+        name = test2.select_one('a')['href']
+        # print(name)
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = test2.select_one('em')['title']  # 상품 가격
+
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen20Naver 크롤링 저장 완료!')
+
+
+def gen30Naver():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=30%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&oquery=23%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&tqi=UzBh3sp0JXossbv15RGssssstR0-289751',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    test = soup.select('div.group_guide >ul >li')
+    # img alt:상품이름 , img src:이미지링크 , em title,em.text:가격
+    genCode = 30
+
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+
+        # print(name)
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = test2.select_one('em')['title']  # 상품 가격
+
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen30Naver 크롤링 저장 완료!')
+
+
+def gen40Naver():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=40%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&oquery=30%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&tqi=UzBh3wp0Jy0sshwe55NsssssshG-196664',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    test = soup.select('div.group_guide >ul >li')
+
+    genCode = 40
+
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+
+        # print(name)
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = test2.select_one('em')['title']  # 상품 가격
+
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen40Naver 크롤링 저장 완료!')
+
+def gen50Naver():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=50%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&oquery=40%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&tqi=UzBh9lp0JXVssNU9YHKsssssti4-036491',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    # test = soup.select_one('#main_pack > div.sp_shop_default.section._shopping_guide_view > div.group_item > div.group_guide > div:nth-child(1) > div > ul > li:nth-child(1) > div > div.detail_area > div > div.tit > a')
+    # test2 = soup.select('#main_pack > div.sp_shop_default.section._shopping_guide_view > div.group_item > div.group_guide > div:nth-child(1) > div > ul >li> div > div')
+    test = soup.select('div.group_guide >ul >li')
+    # img alt:상품이름 , img src:이미지링크 , em title,em.text:가격
+    genCode = 50
+
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+
+        # print(name)
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = test2.select_one('em')['title']  # 상품 가격
+
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen50Naver 크롤링 저장 완료!')
+
+def gen10txt():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'http://www.10x10.co.kr/search/search_result.asp?rect=10%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&exkw=1',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+    # print(soup)
+    test = soup.select('div.pdtWrap>ul>li ')
+    # print(test)
+    genCode = 10
+
+    # img alt=상품이름/img src=이미지/span class="finalP" = 가격
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+        price_tag = test2.select_one('div>div>p>span')
+
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = price_tag.text  # 상품 가격
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen10txt 크롤링 저장 완료!')
+
+def gen20txt():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'http://www.10x10.co.kr/search/search_result.asp?rect=20%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&exkw=1',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+    # print(soup)
+    test = soup.select('div.pdtWrap>ul>li ')
+    # print(test)
+    genCode = 20
+
+    # img alt=상품이름/img src=이미지/span class="finalP" = 가격
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+        price_tag = test2.select_one('div>div>p>span')
+
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = price_tag.text  # 상품 가격
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen20txt 크롤링 저장 완료!')
+
+def gen30txt():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(
+        'http://www.10x10.co.kr/search/search_result.asp?rect=30%EB%8C%80+%EC%83%9D%EC%9D%BC%EC%84%A0%EB%AC%BC&exkw=1',
+        headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+    # print(soup)
+    test = soup.select('div.pdtWrap>ul>li ')
+    # print(test)
+
+    genCode = 30
+
+    # img alt=상품이름/img src=이미지/span class="finalP" = 가격
+    for test2 in test:
+        a_tag = test2.select_one('div>a')
+        price_tag = test2.select_one('div>div>p>span')
+
+        if a_tag is not None:
+            link = test2.select_one('a')['href']  # 상품 링크
+            prdName = test2.select_one('img')['alt']  # 상품 이름
+            prdImg = test2.select_one('img')['src']  # 상품 이미지
+            prdPrice = price_tag.text  # 상품 가격
+            prdList = {
+                'genCode': genCode,
+                'prdLink': link,
+                'prdImg': prdImg,
+                'prdName': prdName,
+                'prdPrice': prdPrice
+            }
+            db.HapB.insert_one(prdList)
+    print('gen30txt 크롤링 저장 완료!')
+
+
+
 # db 실행
 # check = list(db.HapB.find({'genCode':60}))
 # print(check)
 
 # 네이버 여자친구 크롤링 저장 완료
 # naverGfUrl()
-# 네이버 남자친구 크롤링 저장 완료
+# # 네이버 남자친구 크롤링 저장 완료
 # naverBfUrl()
-# 텐바이텐 여자친구 크롤링 저장 완료
+# # 텐바이텐 여자친구 크롤링 저장 완료
 # txtGfUrl()
-# 텐바이텐 남자친구 크롤링 저장 완료
+# # 텐바이텐 남자친구 크롤링 저장 완료
 # txtBfUrl()
-# 텐바이텐 부모님 크롤링 저장 완료
+# # 텐바이텐 부모님 크롤링 저장 완료
 # txtMFUrl()
+# gen10Naver()
+# gen20Naver()
+# gen30Naver()
+# gen40Naver()
+# gen50Naver()
+gen10txt()
+gen20txt()
+gen30txt()

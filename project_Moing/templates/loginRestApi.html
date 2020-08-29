@@ -4,7 +4,7 @@
 	<title>햅비 : 로그인</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
@@ -14,13 +14,13 @@
 	<link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/css/util.css">
@@ -84,15 +84,6 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-<!--						<div class="wrap-login100-form-btn">-->
-<!--							<div class="login100-form-bgbtn"></div>-->
-<!--							<button class="login100-form-btn">-->
-<!--								Login-->
-<!--							</button>-->
-<!--&lt;!&ndash;							<button class="login100-form-btn">&ndash;&gt;-->
-<!--&lt;!&ndash;							<a href="http://developers.kakao.com/logout">로그아웃</a>&ndash;&gt;-->
-<!--&lt;!&ndash;							</button>&ndash;&gt;-->
-<!--						</div>-->
 							<a id="kakao-login-btn">카카오</a>
 					</div>
 
@@ -117,14 +108,7 @@
 								url: '/v2/user/me',
 								success: function(res)
 								{
-								    // alert(JSON.stringify(res))
-
-									kakaoid = JSON.stringify(res.id)
-									kakaoEmail = JSON.stringify(res.email)
-									kakaoRange = JSON.stringify(res.age_range)
-
-									console.log(kakaoid,kakaoEmail,kakaoRange);
-
+								    alert(JSON.stringify(res))
 								},
 								fail: function(error)
 								{
@@ -156,10 +140,10 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div id="dropDownSelect1"></div>
-	
+
 <!--===============================================================================================-->
 	<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

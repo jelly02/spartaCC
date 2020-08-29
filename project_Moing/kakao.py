@@ -1,13 +1,113 @@
+#!/usr/bin/python
+
+'''
+KakaoTalk PC-style Login PoC
+
+Author: Brian Pak (bpak.org)
+
+'''
+
 import requests
-from bs4 import BeautifulSoup
+import json
+import urllib2
+import sys
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-data = requests.get('https://shoppinghow.kakao.com/search/10%EB%8C%80%20%EC%83%9D%EC%9D%BC%20%EC%84%A0%EB%AC%BC/sort_type:9&view_type:image&image_filter_cnt:200', headers=headers)
+# Fill these in before you use it
+EMAIL = ''
+PASSWORD = ''
+COMP_NAME = ''
+ONCE = 'false'
+DUUID = ''
 
-soup = BeautifulSoup(data.text,'html.parser')
-print(soup)
-##Z7396303091 > div.wrap_thumb > a > img
+LOGIN_URL = 'https://sb-talk.kakao.com/win32/account/login.json'
+SETTINGS_URL = 'https://sb-talk.kakao.com/win32/account/more_settings.json?since=0&lang=en'
+BLOCKED_URL = 'https://sb-talk.kakao.com/win32/friends/blocked.json?'
+UPDATE_URL = 'https://sb-talk.kakao.com/win32/friends/update.json'
 
-test2 = soup.select("div.wrap_prod_list")
-print(test2)
+headers = {'User-Agent': 'KakaoTalk Win32 1.0.3',
+           'Host': 'sb-talk.kakao.com',
+           'A': 'win32/1.0.3/en',
+           'Content-Type': 'application/x-www-form-urlencoded',
+           }
+
+data = {'email': EMAIL,
+        'password': PASSWORD,
+        'device_uuid': DUUID,
+        'model': '',
+        'name': COMP_NAME}
+
+
+def login_step1():
+    r = requests.post(LOGIN_URL, data=data, headers=headers)
+    j = json.loads(r.text)
+    if j['status'] != -100:
+        print
+        'Error in step 1'
+        sys.exit()
+    else:
+        print
+        'Step 1 Success!'
+
+
+def login_step2():
+    data['once'] = ONCE
+    r = requests.post(LOGIN_URL, data=data, headers=headers)
+    j = json.loads(r.text)
+    if j['status'] != 0:
+        print
+        'Error in step 2'
+        sys.exit()
+    else:
+        print
+        'Step 2 Success!'
+
+
+def login_step3():
+    data['forced'] = 'false'
+    data['passcode'] = raw_input('passcode? => ')
+    r = requests.post(LOGIN_URL, data=data, headers=headers)
+    j = json.loads(r.text)
+    if j['status'] != 0:
+        print
+        'Error in step 3'
+        sys.exit()
+    else:
+        print
+        'Step 3 Success!'
+        print
+        'Got sessionKey: %s' % j['sessionKey']
+        print
+        'Device UUID: %s' % DUUID
+        headers['S'] = '%s-%s' % (j['sessionKey'], DUUID)
+
+
+def get_settings():
+    r = requests.get(SETTINGS_URL, headers=headers)
+    print
+    r.text
+
+
+def get_blocked():
+    r = requests.get(BLOCKED_URL, headers=headers)
+    print
+    r.text
+
+
+def get_update():
+    update_data = {'contacts': '[]',
+                   'removed': '[]',
+                   'phone_number_type': 1,
+                   'token': 0,
+                   'type': 'f'}
+    r = requests.post(UPDATE_URL, data=update_data, headers=headers)
+    print
+    r.text
+
+
+# main
+login_step1()
+login_step2()
+login_step3()
+get_settings()
+get_blocked()
+get_update()
